@@ -1,0 +1,16 @@
+[
+    {
+        "id": 1,
+        "username": "bo",
+        "password": "12",
+        "level": 3,
+        "createdAt": "2026-11-10T10:00:00.000Z"
+    },
+    {
+        "id": 2,
+        "username": "per",
+        "password": "1234",
+        "level": 1,
+        "createdAt": "2026-11-10T10:00:00.000Z"
+    }
+]

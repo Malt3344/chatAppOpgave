@@ -1,2 +1,11 @@
-html 
-    h1 fuck 
+html
+    head
+        title Chat App
+        link(rel="stylesheet", href="/style.css")
+    body
+        if(isValidUser)
+            p Logget ind som #{username} (niveau #{level})
+            a(href="/logout") Log ud
+            include snippets/chatOversigt.pug
+        else
+            include snippets/loginForm.pug
