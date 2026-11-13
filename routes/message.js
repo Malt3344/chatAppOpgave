@@ -13,4 +13,12 @@ messages.get('chats/:id/messages', (req, res) => {
     res.json(message)
 })
 
+//Der skal laves en addmetode i firebase og findes url
+messages.post('/', async(req, res) => {
+    addMessage(req.body.message, req.session.isLoggin, req.body.chatId)
+    res.render('/')
+})
+
+
+
 export {messages}
