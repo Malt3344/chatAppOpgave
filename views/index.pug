@@ -6,6 +6,7 @@ html
         if(isValidUser)
             p Logget ind som #{username} (niveau #{level})
             a(href="/logout") Log ud
-            include snippets/chatOversigt.pug
+            form(action="/chats", method="GET")
+                button(type="submit") Vis Chatoversigt
         else
             include snippets/loginForm.pug

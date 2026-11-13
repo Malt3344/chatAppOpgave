@@ -1,1 +1,8 @@
-h1 dette er en chatoversigt
+h1 Chatoversigt
+if chats.length
+    ul
+        each chat in chats
+            li
+                a(href=`/chats/${chat.id}`)= chat.name 
+else
+    p Der er ingen chats endnu
