@@ -4,8 +4,10 @@ import User from './model/user.js'
 //import Chat from './model/chat.js'
 
 let users = []
+let chats = []
 
 let usersData = await Archive.readFile('data/users.json')
+let chatsData = await Archive.readFile('data/chats.json')
 
 if (usersData) {
     users = JSON.parse(usersData)
@@ -13,6 +15,10 @@ if (usersData) {
         return user.id >= accumulator ? user.id : accumulator
     }, 0)
     User.id = biggestID + 1
+}
+
+if (chatsData) {
+    chats = JSON.parse(chatsData)
 }
 
 async function addUser(username, password, level) {
@@ -34,5 +40,12 @@ function getUsers() {
     return users
 }
 
+function getChats(){
+    return chats
+}
 
-export { addUser, getUsers, deleteUser, checkLogin}
+function getChatById(chatId) {
+    return chats.find(chat => String(chat.id) === chatId)
+}
+
+export { addUser, getUsers, deleteUser, checkLogin, getChats, getChatById }

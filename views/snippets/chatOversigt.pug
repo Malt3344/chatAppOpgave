@@ -1,15 +1,1 @@
-h1 Chat oversigt 
-
-#knapper
-    a(href="/chats/create") Opret ny chat 
-    a(href="/messages") Se dine beskeder 
-    if (level == 3)
-        a(href="/users") Administrer brugere 
-    a(href="/logout") Log ud 
-
-ul
-    each chat in chats
-        li
-            a(href="/chats/" + chat.id)= chat.name
-            form(action="/chats/" + chat.id + "/delete", method="POST")
-                button(type="submit") Slet
+h1 dette er en chatoversigt
