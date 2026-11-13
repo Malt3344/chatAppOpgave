@@ -4,8 +4,7 @@ html
         link(rel="stylesheet", href="/style.css")
     body
         if(isValidUser)
-            p Logget ind som #{username} (niveau #{level})
-            a(href="/logout") Log ud
             include snippets/chatOversigt.pug
         else
+            h1 Velkommen til din chat
             include snippets/loginForm.pug

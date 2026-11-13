@@ -23,7 +23,11 @@ app.get('/', (request, response) => {
     const isValidUser = request.session.isValidUser
     const username = request.session.username
     const level = request.session.level
-    response.render('index', { isValidUser, username, level })
+
+    //midlertidigt indtil vi får chats:
+    const chats = []
+
+    response.render('index', { isValidUser, username, level, chats })
 })
 
 app.post('/login', (request, response) => {

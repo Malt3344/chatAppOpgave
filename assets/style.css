@@ -1,0 +1,35 @@
+body {
+    font-family: Arial, Helvetica, sans-serif;
+    background: whitesmoke;
+    text-align: center;
+}
+
+#loginform {
+    background: white;
+    width: 250px;
+    margin: 0 auto;
+    border-radius: 10px;
+}
+
+#username, #password {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 10px;
+    border: 1px solid gainsboro;
+    border-radius: 6px;
+    box-sizing: border-box;
+}
+
+#loginButton {
+    width: 100%;
+    padding: 10px;
+    background: green;
+    color: white;
+    border: none;
+    border-radius: 6px;
+    font-weight: bold;
+}
+
+#knapper a {
+    margin: 0 10px;
+}
