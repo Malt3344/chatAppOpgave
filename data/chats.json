@@ -1,6 +1,39 @@
 [
-    { "id": 1, "name": "Testchat" } ,
-    { "id": 2, "name": "Date Med Mathias" },
-    { "id": 3, "name": "Alle os der hader Mathias" }
-
+  {
+    "id": 1,
+    "name": "Testchat lavet af Malthe",
+    "createdAt": "2026-11-10T10:00:00.000Z",
+    "owner": 1,
+    "messages": [
+      {
+        "id": 1,
+        "message": "Hej fra Malthe",
+        "createdAt": "2026-11-10T10:01:00.000Z",
+        "owner": 1,
+        "chat": 1
+      },
+      {
+        "id": 2,
+        "message": "Hvad så gamle?",
+        "createdAt": "2026-11-10T10:02:00.000Z",
+        "owner": 1,
+        "chat": 1
+      }
+    ]
+  },
+  {
+    "id": 2,
+    "name": "Mathias' testchat",
+    "createdAt": "2026-11-10T10:00:00.000Z",
+    "owner": 2,
+    "messages": [
+      {
+        "id": 3,
+        "message": "Er der nogen?",
+        "createdAt": "2026-11-10T10:01:00.000Z",
+        "owner": 2,
+        "chat": 2
+      }
+    ]
+  }
 ]

@@ -1,7 +1,7 @@
 import 'dotenv/config'
 import express from 'express'
 import session from 'express-session'
-import { checkLogin } from './controller.js'
+import { checkLogin, getChats } from './controller.js'
 import { chatsRouter } from './routes/chats.js'
 //import userRouter from "./routes/users.js"
 
@@ -12,7 +12,7 @@ app.use(express.static('assets'))
 app.use(express.urlencoded({ extended: true }))
 app.use(express.json())
 app.use(session({
-    secret: 'F64AC984-1047-4EB3-8D50-3A5620E76706',
+    secret: process.env.SESSION_SECRET,
     saveUninitialized: true,
     resave: true
 }))
@@ -23,7 +23,7 @@ app.get('/', (request, response) => {
     const level = request.session.level
 
     //midlertidigt indtil vi får chats:
-    const chats = []
+    const chats = getChats()
 
     response.render('index', { isValidUser, username, level, chats })
 })

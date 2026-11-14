@@ -15,7 +15,7 @@ messages.get('chats/:id/messages', (req, res) => {
 
 //Der skal laves en addmetode i firebase og findes url
 messages.post('/', async(req, res) => {
-    addMessage(req.body.message, req.session.isLoggin, req.body.chatId)
+    addMessage(req.body.chatId, req.body.message, ownerId)
     res.render('/')
 })
 
