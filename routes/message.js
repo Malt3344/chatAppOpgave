@@ -1,13 +1,12 @@
 //Beskederne
 import { Router } from "express";
+import { addMessage } from "../controller.js";
 
-const messages = Router()
-
-const allMessages = [{id: 1, message: 'Hej med dig', dato: new Date('2026-11-13'), ejer: 'Bo', chatId: 1}]
+const messages = Router({mergeParams: true})
 
 //Skal måske ændre i url
 //Henter alle beskeder i en chat
-messages.get('chats/:id/messages', (req, res) => {
+messages.get('/', (req, res) => {
     const message = allMessages.filter(m => m.chatId === Number(req.params.id))
 
     res.json(message)
@@ -15,10 +14,13 @@ messages.get('chats/:id/messages', (req, res) => {
 
 //Der skal laves en addmetode i firebase og findes url
 messages.post('/', async(req, res) => {
-    addMessage(req.body.chatId, req.body.message, ownerId)
-    res.render('/')
+    const message = await addMessage(req.params.id, req.body.message, req.session.userId)
+
+    if (!message){
+        return res.status(404).json({error: 'Chat not found'})
+    }
+
+    res.status(201).json({message})
 })
-
-
 
 export {messages}
