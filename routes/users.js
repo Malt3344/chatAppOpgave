@@ -1,23 +1,25 @@
 import { Router } from "express"
-import { getUsers } from "../controller"
+import { getUsers, getUserById, getMessagesByUser, withoutPassword } from "../controller.js"
+import { requireLogin } from "../middleware.js"
 
-const usersRouter = Router({mergeParams: true})
+const usersRouter = Router({ mergeParams: true })
 
-//Henter alle bruger
-usersRouter.get('/users', (req, res) => {
-    let users = getUsers()
-    res.render('users', {users})
+usersRouter.get('/', requireLogin, (req, res) => {
+    const users = getUsers().map(withoutPassword)
+    res.render('users', { users })
 })
 
-//Henter en bruger
-usersRouter.get('/users/:id', (req, res) => {
-    let user = getUser(req.params.id)
-
-    if (user === null){
-        res.render('404')
+usersRouter.get('/:id', requireLogin, (req, res) => {
+    const user = getUserById(req.params.id)
+    if (!user) {
+        return res.status(404).render('404')
     }
+    res.json(withoutPassword(user))
 })
 
-usersRouter.get('/users/:id/messages', (req, res) => {
-    
+usersRouter.get('/:id/messages', requireLogin, async (req, res) => {
+    const messages = await getMessagesByUser(req.params.id)
+    res.json(messages)
 })
+
+export { usersRouter }

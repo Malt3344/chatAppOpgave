@@ -3,7 +3,7 @@ import express from 'express'
 import session from 'express-session'
 import { checkLogin } from './controller.js'
 import { chatsRouter } from './routes/chats.js'
-//import userRouter from "./routes/users.js"
+import { usersRouter } from './routes/users.js'
 
 const app = express()
 
@@ -22,10 +22,7 @@ app.get('/', (request, response) => {
     const username = request.session.username
     const level = request.session.level
 
-    //midlertidigt indtil vi får chats:
-    const chats = getChats()
-
-    response.render('index', { isValidUser, username, level, chats })
+    response.render('index', { isValidUser, username, level })
 })
 
 app.post('/login', (request, response) => {
@@ -44,7 +41,7 @@ app.get('/logout', (request, response) => {
     response.redirect('/')
 })
 
-app.use('/users', userRouter)
+app.use('/users', usersRouter)
 app.use('/chats', chatsRouter)
 
 app.use((request, response, next) => {
