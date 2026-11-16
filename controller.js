@@ -2,6 +2,7 @@ import Archive from './archive.js'
 import User from './model/user.js'
 import Chat from './model/chat.js'
 import Message from './model/message.js'
+import * as service from './service.js'
 
 let users = []
 let chats = []
