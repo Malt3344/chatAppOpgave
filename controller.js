@@ -58,6 +58,16 @@ function getUsers() {
     return users
 }
 
+function getUser(id){
+    let user =  users.find(u => u.id === id)
+
+    if (!user){
+        return null
+    }
+
+    return user
+}
+
 // Chats
 
 function getChats(){
@@ -78,4 +88,4 @@ async function addMessage(chatId, text, ownerId) {
     return message
 }
 
-export { addUser, getUsers, deleteUser, checkLogin, getChats, getChatById, addMessage}
+export { addUser, getUsers, deleteUser, checkLogin, getChats, getChatById, addMessage, getUser}
