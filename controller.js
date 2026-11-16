@@ -4,12 +4,12 @@ import Chat from './model/chat.js'
 import Message from './model/message.js'
 import * as service from './service.js'
 
+// bruger vi senere til at se hvem er online
+let onlineIds = [] 
+
 let users = []
-let chats = []
 
 let usersData = await Archive.readFile('data/users.json')
-let chatsData = await Archive.readFile('data/chats.json')
-
 
 if (usersData) {
     users = JSON.parse(usersData)
@@ -21,24 +21,8 @@ if (usersData) {
     User.id = biggestUserID + 1
 }
 
-if (chatsData) {
-    chats = JSON.parse(chatsData)
 
-    const biggestChatID = chats.reduce((max, chat) => {
-        return Math.max(max, chat.id)
-    }, 0)
-
-    Chat.id = biggestChatID + 1
-
-    const allMessages = chats.flatMap(chat => chat.messages ?? [])
-
-    const biggestMessageID = allMessages.reduce((max, message) => {
-        return Math.max(max, message.id)
-    }, 0)
-
-    Message.id = biggestMessageID + 1
-
-}
+// Users
 
 async function addUser(username, password, level) {
     const user = new User(username, password, level)
@@ -59,8 +43,8 @@ function getUsers() {
     return users
 }
 
-function getUser(id){
-    let user =  users.find(u => u.id === id)
+function getUserById(id){
+    let user =  users.find(u => u.id == id)
 
     if (!user){
         return null
@@ -69,24 +53,97 @@ function getUser(id){
     return user
 }
 
-// Chats
-
-function getChats(){
-    return chats
+function withoutPassword(user) {
+    return { id: user.id, username: user.username, level: user.level, createdAt: user.createdAt }
 }
 
-function getChatById(chatId) {
-    return chats.find(chat => String(chat.id) === chatId)
+function setOnline(userId) {
+    onlineIds.push(userId)
+}
+
+function setOffline(userId) {
+    onlineIds = onlineIds.filter(id => id != userId)
+}
+
+function getOnlineIds() {
+    return onlineIds
+}
+
+// Adgang: niveau 3 må alt - niveau 2 kun sine egne chats
+function canEditChat(level, userId, chat) {
+    return level == 3 || (level == 2 && chat.owner == userId)
+}
+
+
+// Chats
+
+
+async function getChats(){
+    return await service.getChats()
+}
+
+async function getChatById(chatId) {
+    const chat = await service.getChatById(chatId)
+    if (chat) {
+        chat.messages = await getMessages(chatId)
+    }
+    return chat
+}
+
+async function addChat(name, ownerId) {
+    const chat = new Chat(name, ownerId)
+    return await service.addChat(chat)
+}
+
+async function updateChat(chatId, name) {
+    return await service.updateChat(chatId, { name })
+}
+
+async function deleteChat(chatId) {
+    await service.deleteChat(chatId)
 }
 
 // Messages
-async function addMessage(chatId, text, ownerId) {
-    const chat = chats.find(c => c.id == chatId)
-    if(!chat) return null
-    const message = new Message(text, ownerId, chat.id)
-    chat.messages.push(message)
-    await Archive.writeFile('data/chats.json', JSON.stringify(chats))
+
+function readMessage(message) {
+    const owner = getUserById(message.owner)
+    message.username = owner ? owner.username : 'slettet bruger'
     return message
 }
 
-export { addUser, getUsers, deleteUser, checkLogin, getChats, getChatById, addMessage, getUser}
+async function getMessages(chatId) {
+    const messages = await service.getMessagesByChatId(chatId)
+    return messages.map(readMessage)
+}
+
+async function getMessage(chatId, messageId) {
+    const message = await service.getMessageById(chatId, messageId)
+    if (!message) return null
+    return readMessage(message)
+}
+
+async function getMessagesByUser(userId) {
+    const chats = await service.getChats()
+    let userMessages = []
+    for (const chat of chats) {
+        const messages = await getMessages(chat.id)
+        userMessages.push(...messages.filter(message => message.owner == userId)) // vi bruger ... (spread-operator) så hvert element i arrayet blir sendt som sit eget argument
+    }
+    return userMessages
+}
+
+
+
+async function addMessage(chatId, text, ownerId) {
+    if(!text) return null
+    
+    // max 150 tegn, fordi RSA senere kun kan kryptere korte tekster
+    const message = new Message(text.slice(0, 150), ownerId, chatId)
+    return await service.addMessage(chatId, message)
+}
+
+export {
+    addUser, getUsers, getUserById, deleteUser, checkLogin, withoutPassword, setOnline, setOffline, getOnlineIds,
+    canEditChat, getChats, getChatById, addChat, updateChat, deleteChat,
+    getMessages, getMessage, getMessagesByUser, addMessage
+}

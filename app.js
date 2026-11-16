@@ -1,9 +1,8 @@
 import 'dotenv/config'
 import express from 'express'
 import session from 'express-session'
-import { checkLogin, getChats } from './controller.js'
+import { checkLogin } from './controller.js'
 import { chatsRouter } from './routes/chats.js'
-import { messages } from './routes/message.js'
 //import userRouter from "./routes/users.js"
 
 const app = express()
@@ -45,9 +44,8 @@ app.get('/logout', (request, response) => {
     response.redirect('/')
 })
 
-// app.use('/users', userRouter)
+app.use('/users', userRouter)
 app.use('/chats', chatsRouter)
-app.use('/chats/:id/messages', messages)
 
 app.use((request, response, next) => {
     response.render('404', {})
