@@ -8,3 +8,6 @@ html
 
         h1= chat.name
         p Chatrum
+
+        each m in chat.messages
+            p= m.message + ' ' + m.owner + ' ' + m.createdAt
