@@ -6,7 +6,8 @@ html
         if(isValidUser)
             p Logget ind som #{username} (niveau #{level})
             a(href="/logout") Log ud
-            include snippets/chatOversigt.pug
+            p
+            a.button(href="/chats") Gå til chats
         else
             h1(class="welcome") Velkommen til din chat
             include snippets/loginForm.pug
