@@ -4,10 +4,11 @@ html
         title= chat.name
         link(rel="stylesheet", href="/style.css")
     body
-        a(href="/chats") Tilbage til chatoversigten
-
-        h1= chat.name
-        p Chatrum
+        div(class="overskrift")
+            h1= chat.name
+            a(href="/chats" class="tilbage") Tilbage til chatoversigten
 
         each m in chat.messages
-            p= m.message + ' ' + m.owner + ' ' + m.createdAt
+            div(class="messageText")
+                p(class="messageOwner")= m.owner 
+                p= m.message

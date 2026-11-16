@@ -1,35 +1,234 @@
-body {
-    font-family: Arial, Helvetica, sans-serif;
-    background: whitesmoke;
-    text-align: center;
+* {
+    box-sizing: border-box;
 }
+
+body {
+    margin: 0;
+    padding: 40px 16px;
+    background: lightblue;
+    color: white;
+    font-family: Arial, Helvetica, sans-serif;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+/* ---------- Overskrifter ---------- */
+
+h1 {
+    background-color: darkblue;
+    color: white;
+    font-size: 30px;
+    margin: 20px 0 25px;
+    width: 400px;
+
+}
+
+.welcome {
+    font-style: italic;
+    margin-top: 40px;
+    width: 350px;
+}
+
+h1.small {
+    font-size: 30px;
+    margin: 0 0 25px;
+}
+
+/* ---------- Knapper ---------- */
+
+.btn {
+    display: inline-block;
+    padding: 10px 12px;
+    border: none;
+    color: white;
+    font-family: inherit;
+    font-size: 15px;
+    font-weight: bold;
+    text-decoration: none;
+    cursor: pointer;
+    box-shadow: 0 3px 6px rgba(0, 0, 0, 0.15);
+    transition: 0.2s;
+}
+
+.btn:hover {
+    transform: translateY(-2px);
+    filter: brightness(0.9);
+}
+
+.green {
+    background: darkblue;
+}
+
+.red {
+    background: darkblue;
+}
+
+.btn.full {
+    display: block;
+    width: 100%;
+    margin-top: 20px;
+}
+
+#knapper {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    gap: 18px;
+    margin-bottom: 55px;
+}
+
+/* ---------- Inputfelter ---------- */
+
+input[type="text"],
+input[type="password"] {
+    width: 100%;
+    padding: 11px 14px;
+    margin-bottom: 10px;
+    border: 1px solid #ddd;
+    font-size: 15px;
+}
+
+input:focus {
+    outline: none;
+    border-color: #3b82f6;
+}
+
+/* ---------- Login ---------- */
 
 #loginform {
+    width: 350px;
+    max-width: 100%;
+    padding: 35px;
     background: white;
-    width: 250px;
-    margin: 0 auto;
-    border-radius: 10px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
 }
 
-#username, #password {
-    width: 100%;
-    padding: 10px;
-    margin-bottom: 10px;
-    border: 1px solid gainsboro;
-    border-radius: 6px;
-    box-sizing: border-box;
+#loginform h3 {
+    color: black;
+    font-size: 18px;
+    margin: 25px 0 30px;
+}
+
+#loginform form {
+    width: 212px;
+    margin: auto;
 }
 
 #loginButton {
     width: 100%;
+    margin-top: 18px;
     padding: 10px;
-    background: green;
+    background: darkblue;
     color: white;
     border: none;
-    border-radius: 6px;
+    font-size: 15px;
+    font-weight: bold;
+    cursor: pointer;
+    box-shadow: 0 3px 6px rgba(0, 0, 0, 0.15);
+}
+
+/* ---------- Opret bruger / opret chat ---------- */
+
+.formcard {
+    width: 285px;
+    max-width: 100%;
+    padding: 35px;
+    background: white;
+    border-radius: 10px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+    text-align: left;
+}
+
+.formcard label {
+    display: block;
+    margin-bottom: 8px;
+    color: #444;
+    font-size: 13px;
     font-weight: bold;
 }
 
-#knapper a {
-    margin: 0 10px;
+.formcard input {
+    margin-bottom: 22px;
 }
+
+.formcard select {
+    width: 100%;
+    margin-bottom: 20px;
+}
+
+.formcard .btn {
+    text-align: center;
+}
+
+.btn.annuller {
+    margin-top: 35px;
+}
+
+/* ---------- Chat oversigt ---------- */
+
+#chatliste {
+    list-style: none;
+    width: 550px;
+    max-width: 100%;
+    margin: 0;
+    padding: 0;
+    background: white;
+    border-radius: 10px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+    overflow: hidden;
+    text-align: left;
+}
+
+.chatOversigt{
+    background-color: darkblue;
+    color: white;
+    text-decoration: none;
+}
+
+.chatListe {
+    list-style: none;
+    padding: 0;
+}
+
+.chatListe li {
+    margin-bottom: 15px;
+}
+
+main {
+    width: 100%;
+}
+
+.overskrift {
+    display: grid;
+    grid-template-columns: 1fr auto 1fr;
+    align-items: center;
+    width: 100%;
+}
+
+.overskrift h1 {
+    grid-column: 2;
+}
+
+.tilbage {
+    justify-self: end;
+    background-color: darkblue;
+    color: white;
+    text-decoration: none;
+}
+
+/* ---------- Chat vindue ---------- */
+
+.messageText{
+    background-color: darkblue;
+    align-self: flex-start;
+    text-align: left;
+    margin-bottom: 15px;
+}
+
+.messageOwner{
+    font-size: 12px;
+}
+
