@@ -1,6 +1,6 @@
 import { Router } from "express"
 import { getUsers, getUserById, getMessagesByUser, withoutPassword } from "../controller.js"
-import { requireLogin } from "../middleware.js"
+import { requireLogin, requireLevel } from "../middleware.js"
 
 const usersRouter = Router({ mergeParams: true }) 
 
