@@ -3,6 +3,8 @@ import User from './model/user.js'
 import Chat from './model/chat.js'
 import Message from './model/message.js'
 import * as service from './service.js'
+import {encrypt, decrypt} from './crypto.js'
+import crypto from 'crypto'
 
 // bruger vi senere til at se hvem er online
 let onlineIds = [] 
@@ -22,10 +24,14 @@ if (usersData) {
 }
 
 
+function hash(password){
+    return crypto.createHash('sha256').update(password).digest('hex')
+}
+
 // Users
 
 async function addUser(username, password, level) {
-    const user = new User(username, password, level)
+    const user = new User(username, hash(password), level)
     users.push(user)
     await Archive.writeFile('data/users.json', JSON.stringify(users))
 }
@@ -36,7 +42,7 @@ async function deleteUser(userid) {
 }
 
 function checkLogin(username, password){
-    return users.find(u => u.username === username && u.password === password)
+    return users.find(u => u.username === username && u.password === hash(password))
 }
 
 function getUsers() {
@@ -105,11 +111,19 @@ async function deleteChat(chatId) {
 
 // Messages
 
-function readMessage(message) {
+
+function readMessage(message){
+    try {
+        message.message = decrypt(message.message)
+    } catch {
+
+    }
     const owner = getUserById(message.owner)
     message.username = owner ? owner.username : 'slettet bruger'
     return message
 }
+
+
 
 async function getMessages(chatId) {
     const messages = await service.getMessagesByChatId(chatId)
@@ -135,12 +149,15 @@ async function getMessagesByUser(userId) {
 
 
 async function addMessage(chatId, text, ownerId) {
-    if(!text) return null
-    
-    // max 150 tegn, fordi RSA senere kun kan kryptere korte tekster
-    const message = new Message(text.slice(0, 150), ownerId, chatId)
+    if (!text) return null
+
+    // RSA kan kun kryptere korte tekster (max 190 bytes), så vi skærer beskeden ned
+    const encryptedText = encrypt(text.slice(0, 90))
+
+    const message = new Message(encryptedText, ownerId, chatId)
     return await service.addMessage(chatId, message)
 }
+
 
 export {
     addUser, getUsers, getUserById, deleteUser, checkLogin, withoutPassword, setOnline, setOffline, getOnlineIds,

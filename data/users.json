@@ -1,16 +1,16 @@
 [
-    {
-        "id": 1,
-        "username": "bo",
-        "password": "12",
-        "level": 3,
-        "createdAt": "2026-11-10T10:00:00.000Z"
-    },
-    {
-        "id": 2,
-        "username": "per",
-        "password": "1234",
-        "level": 1,
-        "createdAt": "2026-11-10T10:00:00.000Z"
-    }
+  {
+    "id": 1,
+    "username": "bo",
+    "password": "6b51d431df5d7f141cbececcf79edf3dd861c3b4069f0b11661a3eefacbba918",
+    "level": 3,
+    "createdAt": "2026-11-10T10:00:00.000Z"
+  },
+  {
+    "id": 2,
+    "username": "per",
+    "password": "03ac674216f3e15c761ee1a5e255f067953623c8b388b4459e13f978d7c846f4",
+    "level": 1,
+    "createdAt": "2026-11-10T10:00:00.000Z"
+  }
 ]

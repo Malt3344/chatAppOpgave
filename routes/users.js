@@ -1,10 +1,10 @@
 import { Router } from "express"
 import { getUsers, getUserById, getMessagesByUser, withoutPassword } from "../controller.js"
-import { requireLogin } from "../middleware.js"
+import { requireLogin, requireLevel } from "../middleware.js"
 
 const usersRouter = Router({ mergeParams: true })
 
-usersRouter.get('/', requireLogin, (req, res) => {
+usersRouter.get('/', requireLogin, requireLevel(3), (req, res) => {
     const users = getUsers().map(withoutPassword)
     res.render('users', { users })
 })
