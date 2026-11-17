@@ -1,4 +1,5 @@
-//Delete og update functioner
+import { doc } from "firebase/firestore"
+
 
 //Henter beskeder
 async function getMessage(){
