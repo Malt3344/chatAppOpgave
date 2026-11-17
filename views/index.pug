@@ -2,12 +2,15 @@ html
     head
         title Chat App
         link(rel="stylesheet", href="/style.css")
+        script(src="/function.js" defer) 
     body
         if(isValidUser)
             p Logget ind som #{username} (niveau #{level})
             a(href="/logout") Log ud
             p
             a.button(href="/chats") Gå til chats
+            if (level === 3)
+                a.button(href="/users" class="allUsers") Alle brugere
         else
             h1(class="welcome") Velkommen til din chat
             include snippets/loginForm.pug

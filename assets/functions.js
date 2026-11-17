@@ -7,4 +7,25 @@ async function getMessage(){
     console.log(message)
 }
 
-getMessage()
+//Slet bruger
+document.querySelectorAll('.deleteUser').forEach(button => {
+    button.addEventListener('click', async (event) => {
+        event.preventDefault()
+        const userId = button.dataset.userId
+        const link = '/users/' + userId
+
+        try {
+            const result = await fetch(link, {
+                method: 'DELETE'
+            })
+
+            if (result.ok) {
+                window.location = '/users'
+            } else {
+                console.error('Kunne ikke slette bruger:', result.status)
+            }
+        } catch (err) {
+            console.error('Kunne ikke slette bruger', err)
+        }
+    })
+})

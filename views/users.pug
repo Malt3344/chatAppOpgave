@@ -1,7 +1,16 @@
 doctype html
 html(lang="en")
     body 
-        h1 All users
+        link(rel="stylesheet", href="/style.css")
+        script(src="/functions.js" defer) 
+
+        div(class="usersHeader")
+            h1(class="alleBruger") Alle bruger
+            div(class="usersActions")
+                a(href="/users/addUser", class="opretBruger") Opret Bruger
+                a(href="/", class="tilbage") Tilbage
         br
         each u in users 
-            p= u.username 
+            div(class="userRow")
+                p(class="users")= u.username    
+                button(type="button" class="deleteUser" data-user-id=u.id) Slet

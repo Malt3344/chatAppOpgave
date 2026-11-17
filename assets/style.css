@@ -232,3 +232,63 @@ main {
     font-size: 12px;
 }
 
+/*--------------Users----------*/
+.alleBruger{
+    background-color: darkblue;
+    color: white;
+    text-align: center;
+}
+.opretBruger{
+    background-color: darkblue;
+    color: white;
+    text-decoration: none;
+}
+
+.users{
+    background-color: darkblue;
+    color: white;
+    text-align: left;
+}
+
+.deleteUser{
+    background-color: darkblue;
+    color: white;
+}
+
+.userRow {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.users {
+    margin: 0;
+}
+
+.lbl{
+    background-color: darkblue;
+    color: white;
+}
+
+.opretBTN{
+    background-color: darkblue;
+    color: white;
+}
+
+/*---------TILBAGE------------*/
+.usersHeader {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 16px;
+}
+
+.usersHeader .alleBruger {
+    width: auto;
+}
+
+.usersActions {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}

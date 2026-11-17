@@ -1,15 +1,21 @@
 import { Router } from "express"
-import { getUsers, getUserById, getMessagesByUser, withoutPassword } from "../controller.js"
-import { requireLogin } from "../middleware.js"
+import { getUsers, getUserById, getMessagesByUser, withoutPassword, addUser, deleteUser } from "../controller.js"
+import { requireLevel, requireLogin } from "../middleware.js"
 
-const usersRouter = Router({ mergeParams: true })
+const usersRouter = Router({ mergeParams: true }) 
+
+usersRouter.use(requireLogin, requireLevel(3))
 
 usersRouter.get('/', requireLogin, (req, res) => {
     const users = getUsers().map(withoutPassword)
     res.render('users', { users })
 })
 
-usersRouter.get('/:id', requireLogin, (req, res) => {
+usersRouter.get('/addUser', requireLogin, (req, res) => {
+    res.render('addUser')
+})
+
+usersRouter.get('/', requireLogin, (req, res) => {
     const user = getUserById(req.params.id)
     if (!user) {
         return res.status(404).render('404')
@@ -20,6 +26,16 @@ usersRouter.get('/:id', requireLogin, (req, res) => {
 usersRouter.get('/:id/messages', requireLogin, async (req, res) => {
     const messages = await getMessagesByUser(req.params.id)
     res.json(messages)
+})
+
+usersRouter.post('/', async (req, res) => {
+    await addUser(req.body.username, req.body.password, Number(req.body.level))
+    res.redirect('/users')
+})
+
+usersRouter.delete('/:id', async (req, res) => {
+    await deleteUser(req.params.id)
+    res.sendStatus(200)
 })
 
 export { usersRouter }
