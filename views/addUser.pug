@@ -1,0 +1,16 @@
+html 
+    body 
+        link(rel="stylesheet", href="/style.css")
+        h1 Opret bruger
+        a(href="/users", class ="tilbage") Tilbage 
+        form(action="/users", method="POST")
+            label(class="lbl") Username
+                input(type="text", name="username", required)
+            label(class="lbl") Password
+                input(type="password", name="password", required)
+            label(class="lbl") Level
+                select(name="level", required)
+                    option(value="1") Level 1
+                    option(value="2") Level 2
+                    option(value="3") Level 3
+            button(type="submit" class="opretBTN") Opret
