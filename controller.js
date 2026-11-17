@@ -137,11 +137,16 @@ async function getMessage(chatId, messageId) {
 }
 
 async function getMessagesByUser(userId) {
-    const chats = await service.getChats()
-    let userMessages = []
-    for (const chat of chats) {
+    const chats = await getChats()
+    const userMessages = []
+
+    for(const chat of chats) {
         const messages = await getMessages(chat.id)
-        userMessages.push(...messages.filter(message => message.owner == userId)) // vi bruger ... (spread-operator) så hvert element i arrayet blir sendt som sit eget argument
+        for(const message of messages) {
+            if(message.owner == userId) {
+                userMessages.push(message)
+            }
+        }
     }
     return userMessages
 }

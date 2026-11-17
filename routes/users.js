@@ -25,7 +25,7 @@ usersRouter.get('/:id', (req, res) => {
 
 usersRouter.get('/:id/messages', async (req, res) => {
     const messages = await getMessagesByUser(req.params.id)
-    res.json(messages)
+    res.render('messages', { messages })
 })
 
 usersRouter.post('/', async (req, res) => {

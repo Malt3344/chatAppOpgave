@@ -10,7 +10,7 @@ import {
   updateDoc,
   deleteDoc,
   query,
-  orderBy,
+  orderBy
 } from "firebase/firestore"
 
 
@@ -177,5 +177,5 @@ export {
   deleteChat,
   getMessagesByChatId,
   getMessageById,
-  addMessage,
+  addMessage
 };
