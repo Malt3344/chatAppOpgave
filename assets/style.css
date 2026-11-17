@@ -292,3 +292,7 @@ main {
     align-items: center;
     gap: 10px;
 }
+.sletChat {
+    margin-left: 10px;
+    cursor: pointer;
+}

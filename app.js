@@ -21,13 +21,14 @@ app.get('/', async (request, response) => {
     const isValidUser = request.session.isValidUser
     const username = request.session.username
     const level = request.session.level
+    const userId = request.session.userId
 
     let chats = []
     if (isValidUser) {
         chats = await getChats()
     }
 
-    response.render('index', { isValidUser, username, level, chats })
+    response.render('index', { isValidUser, username, level, userId, chats })
 })
 
 app.post('/login', (request, response) => {

@@ -3,12 +3,22 @@ html
     head
         title= chat.name
         link(rel="stylesheet", href="/style.css")
+        script(src="/functions.js" defer)
     body
         div(class="overskrift")
-            h1= chat.name
+            h1#chatNavn= chat.name
             a(href="/" class="tilbage") Tilbage
+
+        if canEdit
+            div#knapper
+                button(type="button" id="retChat" data-chat-id=chat.id) Ret chatnavn
+                button(type="button" id="sletChatSide" data-chat-id=chat.id) Slet chat
 
         each m in chat.messages
             div(class="messageText")
-                p(class="messageOwner")= m.owner 
+                p(class="messageOwner")= m.username
                 p= m.message
+
+        form(action=`/chats/${chat.id}/messages`, method="POST")
+            input(type="text", name="message", placeholder="Skriv en besked...", required)
+            button(type="submit") Send

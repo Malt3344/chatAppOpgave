@@ -31,7 +31,10 @@ chatsRouter.get("/:chatId", async (req, res) => {
     return res.status(404).render("404", { message: "Chat ikke fundet" });
   }
 
-  res.render("chat", { chat });
+  // Må brugeren rette/slette denne chat?
+  const canEdit = canEditChat(req.session.level, req.session.userId, chat);
+
+  res.render("chat", { chat, canEdit });
 });
 
 // Opretter chat (niveau 2+)

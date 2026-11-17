@@ -1,29 +1,29 @@
 import { Router } from "express"
-import { getUsers, getUserById, getMessagesByUser, withoutPassword } from "../controller.js"
+import { getUsers, getUserById, getMessagesByUser, withoutPassword, addUser, deleteUser } from "../controller.js"
 import { requireLogin, requireLevel } from "../middleware.js"
 
 const usersRouter = Router({ mergeParams: true }) 
 
 usersRouter.use(requireLogin, requireLevel(3))
 
-usersRouter.get('/', requireLogin, requireLevel(3), (req, res) => {
+usersRouter.get('/', (req, res) => {
     const users = getUsers().map(withoutPassword)
     res.render('users', { users })
 })
 
-usersRouter.get('/addUser', requireLogin, (req, res) => {
+usersRouter.get('/addUser', (req, res) => {
     res.render('addUser')
 })
 
-usersRouter.get('/', requireLogin, (req, res) => {
+usersRouter.get('/:id', (req, res) => {
     const user = getUserById(req.params.id)
     if (!user) {
-        return res.status(404).render('404')
+        return res.status(404).json({ error: 'Bruger ikke fundet' })
     }
     res.json(withoutPassword(user))
 })
 
-usersRouter.get('/:id/messages', requireLogin, async (req, res) => {
+usersRouter.get('/:id/messages', async (req, res) => {
     const messages = await getMessagesByUser(req.params.id)
     res.json(messages)
 })
@@ -35,7 +35,7 @@ usersRouter.post('/', async (req, res) => {
 
 usersRouter.delete('/:id', async (req, res) => {
     await deleteUser(req.params.id)
-    res.sendStatus(200)
+    res.sendStatus(204)
 })
 
 export { usersRouter }

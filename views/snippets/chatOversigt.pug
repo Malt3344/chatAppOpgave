@@ -3,5 +3,8 @@ if chats.length
         each chat in chats
             li
                 a.btn(href=`/chats/${chat.id}` class="chatOversigt")= chat.name
+                //- Niveau 3 må slette alle chats - niveau 2 kun sine egne
+                if (level === 3 || (level === 2 && chat.owner === userId))
+                    button(type="button" class="sletChat" data-chat-id=chat.id) 🗑
 else
     p Der er ingen chats endnu
