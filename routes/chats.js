@@ -12,7 +12,8 @@ import { messagesRouter } from "./message.js";
 
 const chatsRouter = express.Router();
 
-chatsRouter.use("/:chatId/messages", requireLogin, messagesRouter);
+chatsRouter.use(requireLogin)
+chatsRouter.use("/:chatId/messages", messagesRouter);
 
 chatsRouter.get("/", async (req, res) => {
   const chats = await getChats();
