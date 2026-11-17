@@ -5,9 +5,11 @@ html
     body
         if(isValidUser)
             p Logget ind som #{username} (niveau #{level})
-            a(href="/logout") Log ud
-            p
-            a.button(href="/chats") Gå til chats
+            div#knapper
+                a.btn.blue(href="/logout") Log ud
+                a.btn.blue(href="/chats/new") Opret chat
+            h2 Dine chats
+            include snippets/chatOversigt.pug
         else
             h1(class="welcome") Velkommen til din chat
             include snippets/loginForm.pug

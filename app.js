@@ -1,7 +1,7 @@
 import 'dotenv/config'
 import express from 'express'
 import session from 'express-session'
-import { checkLogin } from './controller.js'
+import { checkLogin, getChats } from './controller.js'
 import { chatsRouter } from './routes/chats.js'
 import { usersRouter } from './routes/users.js'
 
@@ -17,12 +17,17 @@ app.use(session({
     resave: true
 }))
 
-app.get('/', (request, response) => {
+app.get('/', async (request, response) => {
     const isValidUser = request.session.isValidUser
     const username = request.session.username
     const level = request.session.level
 
-    response.render('index', { isValidUser, username, level })
+    let chats = []
+    if (isValidUser) {
+        chats = await getChats()
+    }
+
+    response.render('index', { isValidUser, username, level, chats })
 })
 
 app.post('/login', (request, response) => {

@@ -2,6 +2,6 @@ if chats.length
     ul(class="chatListe")
         each chat in chats
             li
-                a(href=`/chats/${chat.id}` class="chatOversigt")= chat.name 
+                a.btn(href=`/chats/${chat.id}` class="chatOversigt")= chat.name
 else
     p Der er ingen chats endnu

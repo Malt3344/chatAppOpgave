@@ -57,11 +57,7 @@ h1.small {
     filter: brightness(0.9);
 }
 
-.green {
-    background: darkblue;
-}
-
-.red {
+.blue {
     background: darkblue;
 }
 
@@ -164,7 +160,11 @@ input:focus {
 }
 
 .btn.annuller {
-    margin-top: 35px;
+    margin-top: 12px;
+    background: white;
+    color: darkblue;
+    border: 2px solid darkblue;
+    box-shadow: none;
 }
 
 /* ---------- Chat oversigt ---------- */
