@@ -275,16 +275,6 @@ main {
     color: white;
 }
 
-.online{
-    background-color: green;
-    color: white;
-}
-
-.offline{
-    background-color: red;
-    color: white;
-}
-
 /*---------TILBAGE------------*/
 .usersHeader {
     display: flex;

@@ -2,7 +2,7 @@ html
     head
         title Chat App
         link(rel="stylesheet", href="/style.css")
-        script(src="/function.js" defer) 
+        script(src="/functions.js" defer) 
     body
         if(isValidUser)
             h1 Chat oversigt
@@ -14,8 +14,6 @@ html
                     a.btn.blue(href="/users") Administrer brugere
                     a.btn.blue(href=`/users/${userId}/messages`) Se dine beskeder
                 a.btn.blue(href="/logout") Log ud
-                a.btn.blue(href="/chats/new") Opret chat
-            h2 Dine chats
             include snippets/chatOversigt.pug
         else
             h1(class="welcome") Velkommen til din chat

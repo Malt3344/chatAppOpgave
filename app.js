@@ -1,7 +1,7 @@
 import 'dotenv/config'
 import express from 'express'
 import session from 'express-session'
-import { checkLogin, getChats, getOnlineIds, setOffline, setOnline } from './controller.js'
+import { checkLogin, getChats } from './controller.js'
 import { chatsRouter } from './routes/chats.js'
 import { usersRouter } from './routes/users.js'
 
@@ -38,16 +38,11 @@ app.post('/login', (request, response) => {
         request.session.username = user.username
         request.session.level = user.level
         request.session.userId = user.id
-        
-        if (!getOnlineIds().includes(request.session.userId)){
-            setOnline(user.id)
-        }
     }
     response.redirect('/')
 })
 
 app.get('/logout', (request, response) => {
-    setOffline(request.session.userId)
     request.session.destroy()
     response.redirect('/')
 })
