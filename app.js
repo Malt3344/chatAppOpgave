@@ -55,7 +55,7 @@ app.use('/users', usersRouter)
 app.use('/chats', chatsRouter)
 
 app.use((request, response, next) => {
-    response.render('404', {})
+    response.status(404).render('404', {})
 })
 
 app.listen(8080, () => {console.log('Serveren kører på port 8080')})

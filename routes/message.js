@@ -1,6 +1,6 @@
 //Beskederne
 import { Router } from "express";
-import { addMessage, getMessages } from "../controller.js";
+import { addMessage, getMessages, getMessage} from "../controller.js";
 
 const messagesRouter = Router({ mergeParams: true });
 
@@ -9,7 +9,12 @@ messagesRouter.get("/", async (req, res) => {
   res.json(messages);
 });
 
-//Der skal laves en addmetode i firebase
+messagesRouter.get("/:messageId", async (req, res) => {
+  const message = await getMessage(req.params.chatId, req.params.messageId)
+  if(!message) return res.status(404).json({ error: 'Besked ikke fundet' })
+  res.json(message)
+})
+
 messagesRouter.post("/", async (req, res) => {
   const message = await addMessage(
     req.params.chatId,

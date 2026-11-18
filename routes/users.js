@@ -6,7 +6,7 @@ const usersRouter = Router({ mergeParams: true })
 
 usersRouter.use(requireLogin, requireLevel(3))
 
-usersRouter.get('/', requireLogin, requireLevel(3), (req, res) => {
+usersRouter.get('/', (req, res) => {
     const users = getUsers().map(withoutPassword).map(u => {
         return {
             id: u.id,
