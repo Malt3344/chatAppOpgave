@@ -12,5 +12,9 @@ html(lang="en")
         br
         each u in users 
             div(class="userRow")
-                p(class="users")= u.username    
+                p(class="users")= u.username
+                if u.online    
+                    p(class="online") Online 
+                else 
+                    p(class="offline") Offline 
                 button(type="button" class="deleteUser" data-user-id=u.id) Slet
